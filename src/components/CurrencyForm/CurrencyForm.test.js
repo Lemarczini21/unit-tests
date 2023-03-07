@@ -5,10 +5,10 @@ import { cleanup } from '@testing-library/react';
 
 describe('Component CurrencyForm', () => {
   const testCases = [
-    { amount: 100, from: 'PLN', to: 'USD' },
-    { amount: 20, from: 'USD', to: 'PLN' },
-    { amount: 200, from: 'PLN', to: 'USD' },
-    { amount: 345, from: 'USD', to: 'PLN' },
+    { amount: '100', from: 'PLN', to: 'USD' },
+    { amount: '20', from: 'USD', to: 'PLN' },
+    { amount: '200', from: 'PLN', to: 'USD' },
+    { amount: '345', from: 'USD', to: 'PLN' },
   ];
   it('should render without crashing', () => {
     render(<CurrencyForm action={() => {}} />);
@@ -39,7 +39,11 @@ describe('Component CurrencyForm', () => {
 
       // check if action callback was called once
       expect(action).toHaveBeenCalledTimes(1);
-      expect(action).toHaveBeenCalledWith(testObj);
+      expect(action).toHaveBeenCalledWith({
+        amount: parseInt(testObj.amount),
+        from: testObj.from,
+        to: testObj.to,
+      });
     });
     // unmount component
     cleanup();
